@@ -63,6 +63,37 @@ Built with React and TypeScript, it provides an interactive interface for managi
 - Error messages for failed operations
 - Role-aware interface elements
 
+## Screenshots
+
+
+### Register
+![TeamFlow Workspaces](screenshots/register.png)
+
+
+### Login
+![TeamFlow Workspaces](screenshots/login.png)
+
+
+### Notifications
+![TeamFlow Workspaces](screenshots/notifications.png)
+
+### Workspaces
+![TeamFlow Workspaces](screenshots/workspaces.png)
+
+### Workspace Members
+![TeamFlow Workspace Members](screenshots/members.png)
+
+
+### Create Task
+![TeamFlow Workspaces](screenshots/create_task.png)
+
+### Tasks and Commints
+![TeamFlow Tasks](screenshots/tasks_and_commints.png)
+
+### Notification of task creation
+![TeamFlow Notifications](screenshots/Task_for_you_notification.png)
+
+
 ## Tech Stack
 
 | Technology       | Purpose                                  |
@@ -171,6 +202,7 @@ See the [Laravel Sanctum documentation](https://laravel.com/docs/sanctum) for de
 ```text
 teamflow-web/
 ├── public/
+├── screenshots/
 ├── src/
 │   ├── lib/
 │   │   └── auth.ts
