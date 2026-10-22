@@ -1,75 +1,217 @@
-# React + TypeScript + Vite
+# TeamFlow Web — React Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+TeamFlow Web is the frontend application for **TeamFlow**, a team collaboration and task management platform.
 
-Currently, two official plugins are available:
+Built with React and TypeScript, it provides an interactive interface for managing workspaces, team members, tasks, task comments, and notifications. It communicates with a Laravel REST API and uses Laravel Sanctum for session-based authentication.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+### Authentication
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- User registration
+- User login and logout
+- Persistent authenticated sessions
+- Automatic restoration of the current user after refreshing the page
+- CSRF protection for session-based authentication
 
-## Expanding the ESLint configuration
+### Workspace Management
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- View available workspaces
+- Create new workspaces
+- Select a workspace
+- Delete workspaces as an owner
+- Refresh the workspace list
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Team Member Management
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- View workspace members
+- Add new members
+- Remove members when authorized
+- Display workspace member roles
+- Show owner-only actions when appropriate
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Task Management
 
+- View tasks within a workspace
+- Create new tasks
+- Edit existing tasks
+- Delete tasks
+- Set task status and priority
+- Assign tasks to workspace members
+- Set task due dates
+- View task creators and assignees
+
+### Task Comments
+
+- View comments on tasks
+- Add comments
+- Delete comments
+
+### Notifications
+
+- View notifications
+- Display unread notification information
+- Mark individual notifications as read
+- Mark all notifications as read
+- Refresh the notification list
+
+### User Experience
+
+- Responsive layout for desktop and mobile screens
+- Loading states during API requests
+- Empty states when no data is available
+- Error messages for failed operations
+- Role-aware interface elements
+
+## Tech Stack
+
+| Technology       | Purpose                                  |
+| ---------------- | ---------------------------------------- |
+| React            | UI development                           |
+| TypeScript       | Type safety                              |
+| Vite             | Development server and production builds |
+| CSS              | Styling and responsive layouts           |
+| Laravel Sanctum  | Session-based SPA authentication         |
+| Laravel REST API | Backend communication                    |
+| npm              | Package management                       |
+
+## Related Repository
+
+The backend API is maintained separately.
+
+- **Backend:** Laravel REST API
+- **Frontend:** React + TypeScript
+
+Add the URL of your `teamflow-api` GitHub repository here once it is published.
+
+## Prerequisites
+
+Make sure you have installed:
+
+- Node.js
+- npm
+- Git
+- The TeamFlow Laravel backend, configured and running locally
+
+## Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Cooooooooooder/teamflow-web
+cd teamflow-web
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Install Dependencies
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
 ```
+
+### 3. Configure the Backend Connection
+
+The frontend communicates with the Laravel API.
+
+For local development, the backend is normally available at:
+
+```text
+http://localhost:8000
+```
+
+The Vite development server normally runs at:
+
+```text
+http://localhost:5173
+```
+
+If your API client uses an environment variable for the backend URL, configure it according to your project's existing implementation.
+
+### 4. Start the Development Server
+
+```bash
+npm run dev
+```
+
+Open the local URL displayed in your terminal, usually:
+
+```text
+http://localhost:5173
+```
+
+### 5. Build for Production
+
+Run:
+
+```bash
+npm run build
+```
+
+This command checks the TypeScript project and generates an optimized production build in the `dist` directory.
+
+The production build was successfully verified during development.
+
+## Authentication and API Integration
+
+The frontend integrates with the Laravel backend using session-based authentication with Laravel Sanctum.
+
+The authentication flow includes:
+
+1. Initializing the CSRF cookie.
+2. Sending registration or login requests.
+3. Including credentials in supported API requests.
+4. Restoring the authenticated user when the application loads.
+5. Sending a logout request when the user signs out.
+
+For local development, the frontend and backend CORS and Sanctum configurations must allow the frontend origin and credentialed requests.
+
+See the [Laravel Sanctum documentation](https://laravel.com/docs/sanctum) for details.
+
+## Project Structure
+
+```text
+teamflow-web/
+├── public/
+├── src/
+│   ├── lib/
+│   │   └── auth.ts
+│   ├── App.tsx
+│   ├── App.css
+│   ├── index.css
+│   ├── main.tsx
+│   └── types.ts
+├── index.html
+├── package.json
+├── package-lock.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+The exact structure may vary as the project evolves.
+
+## Verification
+
+The frontend production build was successfully verified using:
+
+```bash
+npm run build
+```
+
+The command completed successfully with TypeScript checks and Vite production bundling.
+
+Backend automated tests are maintained in the separate Laravel API repository.
+
+## Future Improvements
+
+Potential enhancements include:
+
+- Kanban board interface
+- Task search and filtering
+- Real-time notification updates
+- Improved task activity history
+- Deployment to a production hosting provider
+
+These are potential future improvements and are not claimed as implemented features.
+
+## License
+
+Add a license file if you intend to distribute this project under a specific open-source license.
